@@ -5,3 +5,4 @@ main: addi $8, $0, 5
       syscall
 
 # Se o número for o par o resultado será igual a 0 e se for ímpar o resultado será igual a 1.
+# Numero de exemplo: 5
