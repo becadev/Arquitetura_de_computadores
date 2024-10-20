@@ -1,3 +1,5 @@
+#Faça um programa que leia dois números e
+#informe o menor deles (use apenas operações aritméticas e lógicas.
 .text
 main:	addi $2 $0 5
 	syscall
