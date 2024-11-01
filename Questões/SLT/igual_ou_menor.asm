@@ -13,16 +13,32 @@ main:	addi $2 $0 5
 	add $4 $0 $8
 	j imp
 	
-iguais:	addi $4 $0 '='
+iguais:	add $4 $0 $9
+	addi $2 $0 1
+	syscall
+	
+	addi $4 $0 '='
 	addi $2 $0 11
+	syscall
+	
+	add $4 $0 $8
+	addi $2 $0 1
 	syscall
 	
 	addi $2 $0 10
 	syscall
 	
 imp9:	add $4 $0 $9
-
+	
 imp: 	addi $2 $0 1
+	syscall
+	
+	addi $4 $0 '<'
+	addi $2 $0 11
+	syscall
+	
+	add $4 $0 $8
+	addi $2 $0 1
 	syscall
 	
 	addi $2 $0 10
