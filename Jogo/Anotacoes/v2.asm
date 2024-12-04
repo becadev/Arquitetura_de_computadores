@@ -1,35 +1,57 @@
+#Arvore natal
+#Base da arvore 2*6-1
+#N+2 lados
 .text
 main:
 	lui $8 0x1001
-	ori $9 0x229a00 # cor
-	lui $10 0x1001
-	addi $20 $0 32
+	ori $9 0x00ff # Cor da arvore
+	# lui $10 0x1001
+	addi $21 $0 1024
+	addi $23 $0 1022
+	addi $24 $0 64
+	addi $16 $0 4	# contador de bytes
+	addi $25 $0 11  # contador pixel base
+	addi $26 $0 0
+	addi $27 $0 1
+	addi $18 $0 128
+	addi $8 $0  192
+	# add $8 $18 $24	# primeiro local do bloco do top da arvore
+	sw $9 ($8) 
 	
-test: 	beq $20 $0 lados
-	sw $9 0($8) 
+for_linha:
+	beq $25 $26 base
+	addi $27 $27 2
+	# sub $8 $8 $8	# zerando $8 para adicionar a proxima linha
+	addi $18 $18 128
+	# add $8 $18 $24
+	addi $8 $8 4	
 	
-	for:
-		sw $9 1920($8) 
-		addi $8 $8 4
+	for_ldos: beq $26 $27 ffim
+		  sw $9 0($8) 
+		  addi $8 $8 4
+		  addi $10 $10 4
+		  addi $26 $26 1
+		j for_ldos
+		
+	ffim:		
+		sub $8 $8 $10	
+		
+		# $64 = meio da arvore, para começar antes no proximo tem que subtrair 4
+		# exemplo uma linha com *** começa do com $8 igual 60 e vai até 72, para a proxima
+		# linha começar em 60-4, teria que subtrair primeiro os 12 que foram adicionado ao 60
+	# para andar a linha e começa anterior ao atual
 	
-	addi $20 $20 -1
-	j test
-lados:	
-	addi $20 $0 32
+	sub $26 $26 $26	# zerando contador da arvore
+	j for_linha
 	
-	
-test2:	beq $20 $0 fim
-
-	sw $9 0($10) 
-	addi $10 $8 124	# $8 está com o pc da linha anterior
-
-	sw $9 0($8) 
-	addi $8 $8 128
-	
-	addi $20 $20 -1
-	j test2
-
-
-
-fim:	addi $2 $0 10
+base:
+	addi $2 $0 10
 	syscall
+	
+	
+
+	
+	
+	
+	
+	
